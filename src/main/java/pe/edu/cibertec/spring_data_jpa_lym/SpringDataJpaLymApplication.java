@@ -25,20 +25,20 @@ public class SpringDataJpaLymApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		/**
-		 * save()
+		 * save() guarda un nuevo customer
 		 */
-        Customer customer = new Customer(null, 1, "César", "Torres", "torres@mail.com", 1, 1, new Date(), new Date());
-        customerRepository.save(customer);
+//        Customer customer = new Customer(null, 1, "César", "Torres", "torres@mail.com", 1, 1, new Date(), new Date());
+//        customerRepository.save(customer);
 
 		/**
-		 * findById() - get()
+		 * findById() - get() trae lo que buscamo por id
 		 */
-//        Optional<Customer> optional = customerRepository.findById(632);
+//        Optional<Customer> optional = customerRepository.findById(589);
 //        Customer customer = optional.get();
 //        System.out.println(customer);
 
 		/**
-		 * findById() - orElse()
+		 * findById() - orElse() con esto si regresa null no se cuelga
 		 */
 //        Optional<Customer> optional = customerRepository.findById(632);
 //        Customer customer = optional.orElse(null);
@@ -60,13 +60,13 @@ public class SpringDataJpaLymApplication implements CommandLineRunner {
 		 */
 //        Optional<Customer> optional = customerRepository.findById(632);
 ////        Customer customer = optional.orElseThrow(() -> {
-////            return new IllegalArgumentException();
+////            return new IllegalArgumentException("customer not fount");
 ////        });
 //        Customer customer = optional.orElseThrow(IllegalArgumentException::new);
 //        System.out.println(customer);
 
 		/**
-		 * isPresent()
+		 * isPresent() si la respuesta de la consulta esta presente
 		 */
 //        Optional<Customer> optional = customerRepository.findById(632);
 //        if (optional.isPresent()) {
@@ -76,9 +76,9 @@ public class SpringDataJpaLymApplication implements CommandLineRunner {
 //        }
 
 		/**
-		 * ifPresent()
+		 * ifPresent() si esta presente lo que buscamos
 		 */
-//        Optional<Customer> optional = customerRepository.findById(631);
+//        Optional<Customer> optional = customerRepository.findById(600);
 //        optional.ifPresent((customer) -> {
 //            LocalDate today = LocalDate.now();
 //            System.out.println("Fecha: " + today);
@@ -86,9 +86,9 @@ public class SpringDataJpaLymApplication implements CommandLineRunner {
 //        });
 
 		/**
-		 * ifPresentOrElse()
+		 * ifPresentOrElse() si no esta presente lo que buscamos
 		 */
-//        Optional<Customer> optional = customerRepository.findById(631);
+//        Optional<Customer> optional = customerRepository.findById(601);
 //        optional.ifPresentOrElse(
 //                (item) -> {
 //                    System.out.println(String.format("Customer is %s", item.getEmail()));
@@ -99,9 +99,9 @@ public class SpringDataJpaLymApplication implements CommandLineRunner {
 //        );
 
 		/**
-		 * existById()
+		 * existById() consulta directa a la base de datos y nos dira si existe o no
 		 */
-//        if (customerRepository.existsById(632)) {
+//        if (customerRepository.existsById(600)) {
 //            System.out.println("Customer exist");
 //        } else {
 //            System.out.println("Customer not exist");
@@ -112,15 +112,15 @@ public class SpringDataJpaLymApplication implements CommandLineRunner {
 		 */
 //        Iterable<Customer> iterable = customerRepository.findAll();
 
-		// for clasico
+//		 for clasico
 //        for (Customer customer : iterable) {
 //            System.out.println(customer);
 //        }
 
-		// forEach - Referencia al metodo
+//		 forEach - Referencia al metodo
 //        iterable.forEach(System.out::println);
 
-		// forEach - Referencia al metodo
+//		 forEach - Referencia al metodo
 //        iterable.forEach((variable) -> {
 //            System.out.println(variable.getLast_name());
 //        });
@@ -131,16 +131,16 @@ public class SpringDataJpaLymApplication implements CommandLineRunner {
 //        List<Customer> lista = List.copyOf((Collection<Customer>) iterable);
 
 		/**
-		 * findAllById()
+		 * findAllById() creamos iterable y buscamos por indicacion de id(varios)
 		 */
-//        Iterable<Integer> ids = List.of(620, 621, 622);
+//        Iterable<Integer> ids = List.of(600, 599, 598);
 //        Iterable<Customer> iterable = customerRepository.findAllById(ids);
 //        iterable.forEach(System.out::println);
 
 		/**
-		 * deleteById()
+		 * deleteById() eliminar por id con ejemplo de validar si existe o no lo que quermos eliminar
 		 */
-//        int id = 631;
+//        int id = 600;
 //        if (customerRepository.existsById(id)) {
 //            customerRepository.deleteById(id);
 //        } else {
@@ -148,12 +148,12 @@ public class SpringDataJpaLymApplication implements CommandLineRunner {
 //        }
 
 		/**
-		 * deleteAllById()
+		 * deleteAllById() eliminar por varios id
 		 */
 //        List<Integer> lista = List.of(621, 622, 623);
-////        lista.stream().filter((item) -> {
-////            return customerRepository.existsById(item);
-////        }).collect(Collectors.toList());
+//					//        lista.stream().filter((item) -> {
+//					//            return customerRepository.existsById(item);
+//					//        }).collect(Collectors.toList());
 //        lista.stream().filter(customerRepository::existsById).collect(Collectors.toList());
 //
 //        customerRepository.deleteAllById(lista);
@@ -171,7 +171,7 @@ public class SpringDataJpaLymApplication implements CommandLineRunner {
 //                });
 
 		/**
-		 * deleteAll()
+		 * deleteAll() eliminar varios
 		 */
 //		Iterable<Customer> iterable = customerRepository.findAllById(List.of(618, 619, 620, 621));
 //		customerRepository.deleteAll(iterable);

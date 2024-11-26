@@ -17,7 +17,7 @@ import java.util.Date;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customer_id;
     private Integer store_id;
     private String first_name;
@@ -27,7 +27,5 @@ public class Customer {
     private Integer active;
     private Date create_date;
     private Date last_update;
-
-
 
 }
