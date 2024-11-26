@@ -4,18 +4,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import pe.edu.cibertec.spring_data_jpa_lym.entity.Customer;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import pe.edu.cibertec.spring_data_jpa_lym.entity.Film;
 import pe.edu.cibertec.spring_data_jpa_lym.repository.CustomerRepository;
+import pe.edu.cibertec.spring_data_jpa_lym.repository.FilmRepository;
 
-import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class SpringDataJpaLymApplication implements CommandLineRunner {
 
 	@Autowired
 	CustomerRepository customerRepository;
+
+	@Autowired
+	FilmRepository filmRepository;
+    @Autowired
+    private DataSourceTransactionManagerAutoConfiguration dataSourceTransactionManagerAutoConfiguration;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDataJpaLymApplication.class, args);
@@ -175,6 +180,51 @@ public class SpringDataJpaLymApplication implements CommandLineRunner {
 		 */
 //		Iterable<Customer> iterable = customerRepository.findAllById(List.of(618, 619, 620, 621));
 //		customerRepository.deleteAll(iterable);
+
+
+		/**
+		 * findAll() - Caching
+		 */
+		System.out.println("-----------------------------------------------------");
+		System.out.println("findAll() - 1ra llamada a MySQL");
+		System.out.println("-----------------------------------------------------");
+		Iterable<Film> iterable = filmRepository.findAll();
+		iterable.forEach((film) -> {
+			System.out.print(String.format("%s:%s;", film.getFilm_id(), film.getTitle()));
+		});
+
+		System.out.println();
+		System.out.println("-----------------------------------------------------");
+		System.out.println("findAll() - 2da llamada a MySQL");
+		System.out.println("-----------------------------------------------------");
+		Iterable<Film> iterable2 = filmRepository.findAll();
+		iterable2.forEach((film) -> {
+			System.out.print(String.format("%s:%s;", film.getFilm_id(), film.getTitle()));
+		});
+
+		System.out.println();
+		System.out.println("-----------------------------------------------------");
+		System.out.println("save() - 3ra llamada a MySQL");
+		System.out.println("-----------------------------------------------------");
+		Optional<Film> optional = filmRepository.findById(1);
+		optional.ifPresentOrElse(
+				(film) -> {
+					film.setTitle("BATMAN RETURNS");
+					filmRepository.save(film);
+				},
+				() -> {
+					System.out.println("Film not found");
+				}
+		);
+
+		System.out.println();
+		System.out.println("-----------------------------------------------------");
+		System.out.println("findAll() - 4ta llamada a MySQL");
+		System.out.println("-----------------------------------------------------");
+		Iterable<Film> iterable3 = filmRepository.findAll();
+		iterable3.forEach((film) -> {
+			System.out.print(String.format("%s:%s;", film.getFilm_id(), film.getTitle()));
+		});
 
 	}
 
